@@ -12,6 +12,36 @@ let scores = { X: 0, O: 0, ties: 0 };
 let mainBoardState = ["", "", "", "", "", "", "", "", ""];
 let miniBoardStates = Array(9).fill(null).map(() => Array(9).fill(""));
 
+document.addEventListener("DOMContentLoaded", function () {
+      const mainBoard = document.getElementById("main-board");
+      const numBoards = 9;
+      const numCells = 9;
+
+      // Generate 9 mini-boards dynamically
+      for (let boardIndex = 0; boardIndex < numBoards; boardIndex++) {
+            // Create a mini-board container
+            const miniBoard = document.createElement("article");
+            miniBoard.classList.add("mini-board");
+            miniBoard.setAttribute("data-board", boardIndex);
+            miniBoard.setAttribute("aria-label", `Mini Board ${boardIndex}`);
+
+            // Generate 9 cells for each mini-board
+            for (let cellIndex = 0; cellIndex < numCells; cellIndex++) {
+                  const cell = document.createElement("button");
+                  cell.classList.add("cell");
+                  cell.setAttribute("data-cell", cellIndex);
+                  cell.setAttribute("aria-label", `Cell ${cellIndex}`);
+                  cell.addEventListener('click', handleCellClick);
+
+                  miniBoard.appendChild(cell);
+            }
+
+            // Append the mini-board to the main board
+            mainBoard.appendChild(miniBoard);
+      }
+});
+
+
 function handleCellClick(event) {
       const cell = event.target;
       const miniBoardIndex = parseInt(cell.closest(".mini-board").dataset.board);
