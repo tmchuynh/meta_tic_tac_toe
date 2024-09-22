@@ -111,10 +111,10 @@ function disableOtherMiniBoards(activeBoardIndex) {
                         // Check if the mini-board is odd-numbered (nth-child(2n + 1))
                         if ((index + 1) % 2 === 1) {
                               // Apply a different background color for odd mini-boards
-                              cell.style.backgroundColor = "#919296"; // Custom color for odd mini-boards
+                              cell.style.backgroundColor = oddBgColor; // Custom color for odd mini-boards
                         } else {
                               // Apply the default background color for even mini-boards
-                              cell.style.backgroundColor = "#61636e"; // Default background color
+                              cell.style.backgroundColor = defaultBgColor; // Default background color
                         }
                   });
             } else {
