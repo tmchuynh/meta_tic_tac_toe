@@ -47,10 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 });
 
+// Function to handle cell clicks
 function handleCellClick(event) {
-      const cell = event.target;
-      const miniBoardIndex = parseInt(cell.closest(".mini-board").dataset.board);
-      const cellIndex = parseInt(cell.dataset.cell);
+      const cell = event.target;  // Get the clicked cell
+      const miniBoardIndex = parseInt(cell.closest(".mini-board").dataset.board);  // Get the mini-board index
+      const cellIndex = parseInt(cell.dataset.cell);  // Get the clicked cell index
 
       // Check if the cell is empty and the mini-board is still playable
       if (miniBoardStates[miniBoardIndex][cellIndex] === "" && mainBoardState[miniBoardIndex] === "") {
@@ -103,7 +104,7 @@ function disableOtherMiniBoards(activeBoardIndex) {
             const cells = miniBoard.querySelectorAll(".cell");
 
             // Disable cells in all mini-boards except the active one
-            if (index !== activeBoardIndex) {
+            if (index !== activeBoardIndex && !miniBoard.classList.contains("winner")) {
                   cells.forEach(cell => {
                         cell.style.pointerEvents = "none"; // Disable click events
                         cell.style.cursor = "default"; // Change cursor to default
@@ -111,10 +112,10 @@ function disableOtherMiniBoards(activeBoardIndex) {
                         // Check if the mini-board is odd-numbered (nth-child(2n + 1))
                         if ((index + 1) % 2 === 1) {
                               // Apply a different background color for odd mini-boards
-                              cell.style.backgroundColor = oddBgColor; // Custom color for odd mini-boards
+                              cell.style.backgroundColor = "var(--odd-bg-color)"; // Custom color for odd mini-boards
                         } else {
                               // Apply the default background color for even mini-boards
-                              cell.style.backgroundColor = defaultBgColor; // Default background color
+                              cell.style.backgroundColor = "var(--default-bg-color)"; // Default background color
                         }
                   });
             } else {
@@ -135,30 +136,27 @@ function enableAllMiniBoards() {
             const cells = miniBoard.querySelectorAll(".cell");
             cells.forEach(cell => {
                   cell.style.backgroundColor = ""; // Reset background color to default
+
                   // Only re-enable cells in boards that are still playable (haven't been won or tied)
                   if (!miniBoard.classList.contains("winner")) {
                         cell.style.pointerEvents = "auto"; // Re-enable click events
                         cell.style.cursor = "pointer"; // Set cursor to pointer
                   }
             });
+            miniBoard.classList.remove("disabled");  // Remove any visual indicator of disablement
       });
 }
 
+
 // Display a large symbol for the winner of a mini-board
-function displayLargeSymbol(boardIndex, player) {
-      const miniBoard = document.querySelector(`.mini-board[data-board="${boardIndex}"]`);
-
-      // Remove any existing large symbol
-      const existingLargeSymbol = miniBoard.querySelector(".large-symbol");
-      if (existingLargeSymbol) {
-            existingLargeSymbol.remove();
-      }
-
-      // Create and append the large symbol
-      const largeSymbol = document.createElement("div");
-      largeSymbol.classList.add("large-symbol");
-      largeSymbol.textContent = player;
-      miniBoard.appendChild(largeSymbol);
+function displayLargeSymbolForMainBoard(player) {
+      const largeSymbolContainer = document.createElement("div");
+      largeSymbolContainer.classList.add("main-large-symbol");
+      largeSymbolContainer.textContent = player;
+      document.body.appendChild(largeSymbolContainer); // Append it to the body or a specific container
+      setTimeout(() => {
+            largeSymbolContainer.remove(); // Remove the symbol after some time
+      }, 2000); // Adjust the duration as needed
 }
 
 // Disable further clicks on a mini-board when it's won or tied
@@ -182,20 +180,6 @@ function checkMiniBoardWinner(boardIndex, player) {
       return winConditions.some(condition => {
             const [a, b, c] = condition;
             return miniBoard[a] === player && miniBoard[b] === player && miniBoard[c] === player;
-      });
-}
-
-// Reset a mini-board in case of a tie
-function resetMiniBoard(boardIndex) {
-      // Clear the mini-board's state
-      miniBoardStates[boardIndex] = Array(9).fill("");
-
-      // Clear the mini-board's cells
-      const miniBoardCells = document.querySelectorAll(`.mini-board[data-board="${boardIndex}"] .cell`);
-      miniBoardCells.forEach(cell => {
-            cell.textContent = "";  // Clear text content
-            cell.style.pointerEvents = "auto";  // Enable clicks
-            cell.style.cursor = "pointer";  // Set cursor to pointer
       });
 }
 
@@ -243,6 +227,20 @@ function resetGame() {
 
       // Update the scoreboard
       updateScores();
+}
+
+// Reset a mini-board in case of a tie
+function resetMiniBoard(boardIndex) {
+      // Clear the mini-board's state
+      miniBoardStates[boardIndex] = Array(9).fill("");
+
+      // Clear the mini-board's cells
+      const miniBoardCells = document.querySelectorAll(`.mini-board[data-board="${boardIndex}"] .cell`);
+      miniBoardCells.forEach(cell => {
+            cell.textContent = "";  // Clear text content
+            cell.style.pointerEvents = "auto";  // Enable clicks
+            cell.style.cursor = "pointer";  // Set cursor to pointer
+      });
 }
 
 // Attach event listener for the reset button
