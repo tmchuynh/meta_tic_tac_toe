@@ -26,10 +26,6 @@ h2 {
       margin: 0 auto;
 }
 
-.winner {
-      background-color: var(--off-white);
-}
-
 ul,
 li {
       margin: 10px 0;
