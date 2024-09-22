@@ -91,6 +91,38 @@ function handleCellClick(event) {
       }
 }
 
+// Function to disable all other mini-boards except the one currently in play
+function disableOtherMiniBoards(activeBoardIndex) {
+      const allMiniBoards = document.querySelectorAll(".mini-board");
+      allMiniBoards.forEach((miniBoard, index) => {
+            if (index !== activeBoardIndex) {
+                  // Disable all cells in the other mini-boards
+                  const cells = miniBoard.querySelectorAll(".cell");
+                  cells.forEach(cell => {
+                        cell.style.pointerEvents = "none"; // Disable click events
+                        cell.style.cursor = "default"; // Change cursor to default
+                  });
+                  miniBoard.classList.add("disabled");  // Optionally, add a visual indicator (e.g., grey out)
+            }
+      });
+}
+
+// Function to enable all mini-boards once a mini-board is finished
+function enableAllMiniBoards() {
+      const allMiniBoards = document.querySelectorAll(".mini-board");
+      allMiniBoards.forEach(miniBoard => {
+            const cells = miniBoard.querySelectorAll(".cell");
+            cells.forEach(cell => {
+                  // Only re-enable cells in boards that are still playable (haven't been won or tied)
+                  if (!miniBoard.classList.contains("winner")) {
+                        cell.style.pointerEvents = "auto"; // Re-enable click events
+                        cell.style.cursor = "pointer"; // Set cursor to pointer
+                  }
+            });
+            miniBoard.classList.remove("disabled");  // Remove any visual indicator of disablement
+      });
+}
+
 // Display a large symbol for the winner of a mini-board
 function displayLargeSymbol(boardIndex, player) {
       const miniBoard = document.querySelector(`.mini-board[data-board="${boardIndex}"]`);
