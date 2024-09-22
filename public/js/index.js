@@ -179,13 +179,16 @@ function checkMiniBoardWinner(boardIndex, player) {
       const winConditions = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
             [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
-            [0, 4, 8], [2, 4, 6]  // Diagonals
+            [0, 4, 8], [2, 4, 6]              // Diagonals
       ];
-      // Check if the player satisfies any win condition
-      return winConditions.some(condition => {
+
+      for (const condition of winConditions) {
             const [a, b, c] = condition;
-            return miniBoard[a] === player && miniBoard[b] === player && miniBoard[c] === player;
-      });
+            if (miniBoard[a] === player && miniBoard[b] === player && miniBoard[c] === player) {
+                  return true;  // Return immediately if a winner is found
+            }
+      }
+      return false;  // Return false if no winner is found
 }
 
 // Check if a player has won the main board
@@ -193,13 +196,16 @@ function checkMainBoardWinner(player) {
       const winConditions = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
             [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
-            [0, 4, 8], [2, 4, 6]  // Diagonals
+            [0, 4, 8], [2, 4, 6]              // Diagonals
       ];
-      // Check if the player satisfies any main board win condition
-      return winConditions.some(condition => {
+
+      for (const condition of winConditions) {
             const [a, b, c] = condition;
-            return mainBoardState[a] === player && mainBoardState[b] === player && mainBoardState[c] === player;
-      });
+            if (mainBoardState[a] === player && mainBoardState[b] === player && mainBoardState[c] === player) {
+                  return true;  // Return immediately if a winner is found
+            }
+      }
+      return false;  // Return false if no winner is found
 }
 
 // Update the displayed scores for both players and ties
