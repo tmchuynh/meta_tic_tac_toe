@@ -149,14 +149,19 @@ function enableAllMiniBoards() {
 
 
 // Display a large symbol for the winner of a mini-board
-function displayLargeSymbolForMainBoard(player) {
-      const largeSymbolContainer = document.createElement("div");
-      largeSymbolContainer.classList.add("main-large-symbol");
-      largeSymbolContainer.textContent = player;
-      document.body.appendChild(largeSymbolContainer); // Append it to the body or a specific container
-      setTimeout(() => {
-            largeSymbolContainer.remove(); // Remove the symbol after some time
-      }, 2000); // Adjust the duration as needed
+function displayLargeSymbol(boardIndex, player) {
+      const miniBoard = document.querySelector(`.mini-board[data-board="${boardIndex}"]`);
+      // Remove any existing large symbol
+      const existingLargeSymbol = miniBoard.querySelector(".large-symbol");
+      if (existingLargeSymbol) {
+            existingLargeSymbol.remove();
+      }
+
+      // Create and append the large symbol
+      const largeSymbol = document.createElement("div");
+      largeSymbol.classList.add("large-symbol");
+      largeSymbol.textContent = player;
+      miniBoard.appendChild(largeSymbol);
 }
 
 // Disable further clicks on a mini-board when it's won or tied
