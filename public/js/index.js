@@ -47,16 +47,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 });
 
-// Function to handle cell clicks
 function handleCellClick(event) {
-      const cell = event.target;  // Get the clicked cell
-      const miniBoardIndex = parseInt(cell.closest(".mini-board").dataset.board);  // Get the mini-board index
-      const cellIndex = parseInt(cell.dataset.cell);  // Get the clicked cell index
+      const cell = event.target;
+      const miniBoardIndex = parseInt(cell.closest(".mini-board").dataset.board);
+      const cellIndex = parseInt(cell.dataset.cell);
 
       // Check if the cell is empty and the mini-board is still playable
       if (miniBoardStates[miniBoardIndex][cellIndex] === "" && mainBoardState[miniBoardIndex] === "") {
             miniBoardStates[miniBoardIndex][cellIndex] = currentPlayer;  // Update mini-board state
             cell.textContent = currentPlayer;  // Set the cell's text to the current player's symbol
+
+            // Disable all other mini-boards when a cell in this board is clicked
+            disableOtherMiniBoards(miniBoardIndex);
 
             // Check for a winner on the mini-board
             let miniBoardWinner = "";
@@ -66,10 +68,12 @@ function handleCellClick(event) {
                   document.querySelector(`.mini-board[data-board="${miniBoardIndex}"]`).classList.add("winner");
                   disableCells(miniBoardIndex);  // Disable further clicks on the mini-board
                   displayLargeSymbol(miniBoardIndex, currentPlayer);  // Display large symbol on the mini-board
+                  enableAllMiniBoards();  // Re-enable all other mini-boards
             } else if (miniBoardStates[miniBoardIndex].every(cell => cell !== "")) {
                   // If no winner and all cells are filled, mark the mini-board as a tie
                   mainBoardState[miniBoardIndex] = "T";
                   resetMiniBoard(miniBoardIndex);  // Reset the mini-board
+                  enableAllMiniBoards();  // Re-enable all other mini-boards
             }
 
             // Check for a winner on the main board
@@ -90,6 +94,7 @@ function handleCellClick(event) {
             }
       }
 }
+
 
 // Function to disable all other mini-boards except the one currently in play
 function disableOtherMiniBoards(activeBoardIndex) {
