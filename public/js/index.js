@@ -100,14 +100,30 @@ function handleCellClick(event) {
 function disableOtherMiniBoards(activeBoardIndex) {
       const allMiniBoards = document.querySelectorAll(".mini-board");
       allMiniBoards.forEach((miniBoard, index) => {
+            const cells = miniBoard.querySelectorAll(".cell");
+
+            // Disable cells in all mini-boards except the active one
             if (index !== activeBoardIndex) {
-                  // Disable all cells in the other mini-boards
-                  const cells = miniBoard.querySelectorAll(".cell");
                   cells.forEach(cell => {
                         cell.style.pointerEvents = "none"; // Disable click events
                         cell.style.cursor = "default"; // Change cursor to default
+
+                        // Check if the mini-board is odd-numbered (nth-child(2n + 1))
+                        if ((index + 1) % 2 === 1) {
+                              // Apply a different background color for odd mini-boards
+                              cell.style.backgroundColor = "#919296"; // Custom color for odd mini-boards
+                        } else {
+                              // Apply the default background color for even mini-boards
+                              cell.style.backgroundColor = "#61636e"; // Default background color
+                        }
                   });
-                  miniBoard.classList.add("disabled");  // Optionally, add a visual indicator (e.g., grey out)
+            } else {
+                  // For the active mini-board, reset the cells' background color
+                  cells.forEach(cell => {
+                        cell.style.pointerEvents = "auto"; // Re-enable click events for the active mini-board
+                        cell.style.cursor = "pointer"; // Change cursor back to pointer
+                        cell.style.backgroundColor = ""; // Reset background color to default
+                  });
             }
       });
 }
@@ -118,13 +134,13 @@ function enableAllMiniBoards() {
       allMiniBoards.forEach(miniBoard => {
             const cells = miniBoard.querySelectorAll(".cell");
             cells.forEach(cell => {
+                  cell.style.backgroundColor = ""; // Reset background color to default
                   // Only re-enable cells in boards that are still playable (haven't been won or tied)
                   if (!miniBoard.classList.contains("winner")) {
                         cell.style.pointerEvents = "auto"; // Re-enable click events
                         cell.style.cursor = "pointer"; // Set cursor to pointer
                   }
             });
-            miniBoard.classList.remove("disabled");  // Remove any visual indicator of disablement
       });
 }
 
