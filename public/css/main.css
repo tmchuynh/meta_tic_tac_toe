@@ -1,103 +1,103 @@
 :root {
-      --light-green: #80da82;
-      --red: #f07171;
-      --grey: #25283d;
-      /* Colors for mini-boards */
-      --primary: #7EB77F;
-      --secondary: #cce7d7;
-      --off-white: #f4fff4;
-      --symbol: #001c0fd8;
-      /* Colors for disabled mini-boards */
-      --default-bg-color: #25283d;
-      --odd-bg-color: #6b7280;
+	--light-green: #80da82;
+	--red: #f07171;
+	--grey: #25283d;
+	/* Colors for mini-boards */
+	--primary: #7EB77F;
+	--secondary: #cce7d7;
+	--off-white: #f4fff4;
+	--symbol: #001c0fd8;
+	/* Colors for disabled mini-boards */
+	--default-bg-color: #25283d;
+	--odd-bg-color: #6b7280;
 }
 
 body {
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 header {
-      padding: 1rem;
+	padding: 1rem;
 }
 
 h1,
 h2 {
-      text-align: center;
+	text-align: center;
 }
 
 .instructions {
-      max-width: 90%;
-      margin: 0 auto;
-      padding: 2rem 0;
+	max-width: 90%;
+	margin: 0 auto;
+	padding: 2rem 0;
 }
 
 ul,
 li {
-      margin: 10px 0;
+	margin: 10px 0;
 }
 
 span {
-      font-weight: bold;
+	font-weight: bold;
 }
 
 .main-board {
-      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-      aspect-ratio: 1/1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-      border: 10px solid var(--grey);
-      border-radius: 10px;
-      width: 75%;
-      margin: 2rem auto;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	aspect-ratio: 1/1;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 5px;
+	border: 10px solid var(--grey);
+	border-radius: 10px;
+	width: 75%;
+	margin: 2rem auto;
 }
 
 .mini-board {
-      aspect-ratio: 1/1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-      position: relative;
+	aspect-ratio: 1/1;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 5px;
+	position: relative;
 }
 
 .mini-board:focus-visible {
-      outline: none;
+	outline: none;
 }
 
 .cell {
-      width: 100%;
-      height: 100%;
-      aspect-ratio: 1/1;
-      background-color: var(--primary);
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      cursor: pointer;
-      padding: 0;
-      border: 0;
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 1/1;
+	background-color: var(--primary);
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 32px;
+	cursor: pointer;
+	padding: 0;
+	border: 0;
 }
 
 .cell:focus-visible {
-      outline: none;
+	outline: none;
 }
 
 .mini-board:nth-child(2n + 1) .cell {
-      background-color: var(--secondary);
+	background-color: var(--secondary);
 }
 
 .scoreboard {
-      text-align: center;
-      display: flex;
-      justify-content: space-around;
-      max-width: 75%;
-      margin: 0 auto;
+	text-align: center;
+	display: flex;
+	justify-content: space-around;
+	max-width: 75%;
+	margin: 0 auto;
 }
 
 .scoreboard div {
-      border: 2px outset buttonborder;
-      /* border-width: 2px;
+	border: 2px outset buttonborder;
+	/* border-width: 2px;
       border-style: outset;
       border-color: buttonborder; */
 }
@@ -106,26 +106,26 @@ span {
 .score-o,
 .score-ties,
 #reset-button {
-      display: inline-block;
-      padding: 10px 20px;
-      margin: 1rem auto;
-      background-color: var(--light-green);
-      color: var(--grey);
-      font-size: 18px;
-      border-radius: 5px;
+	display: inline-block;
+	padding: 10px 20px;
+	margin: 1rem auto;
+	background-color: var(--light-green);
+	color: var(--grey);
+	font-size: 18px;
+	border-radius: 5px;
 }
 
 #reset-button {
-      display: flex;
-      background-color: var(--red);
+	display: flex;
+	background-color: var(--red);
 }
 
 .large-symbol {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 200px;
-      color: var(--symbol);
-      pointer-events: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 200px;
+	color: var(--symbol);
+	pointer-events: none;
 }
