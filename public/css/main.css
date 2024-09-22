@@ -1,11 +1,19 @@
 :root {
-      --blue: #007bff;
-      --light-blue: #53a2be;
+      --light-green: #80da82;
+      --red: #f07171;
       --grey: #25283d;
-      --primary: #a64253;
-      --secondary: #bcabae;
+      /* Colors for mini-boards */
+      --primary: #7EB77F;
+      --secondary: #cce7d7;
       --off-white: #f4fff4;
-      --shadow: rgba(0, 0, 0, 0.75);
+      --symbol: #001c12bf;
+      /* Colors for disabled mini-boards */
+      --default-bg-color: #25283d;
+      --odd-bg-color: #6b7280;
+}
+
+header {
+      padding: 1rem;
 }
 
 h1,
@@ -18,13 +26,17 @@ h2 {
       margin: 0 auto;
 }
 
-ul {
+.winner {
+      background-color: var(--off-white);
+}
+
+ul,
+li {
       margin: 10px 0;
 }
 
 .highlight {
       font-weight: bold;
-      color: var(--blue);
 }
 
 .main-board {
@@ -75,15 +87,17 @@ ul {
       color: var(--off-white);
 }
 
-.winner {
-      background-color: var(--grey);
-}
-
 .scoreboard {
-      margin-top: 20px;
       text-align: center;
       display: flex;
       justify-content: space-around;
+}
+
+.scoreboard div {
+      border: 2px outset buttonborder;
+      /* border-width: 2px;
+      border-style: outset;
+      border-color: buttonborder; */
 }
 
 .score-x,
@@ -92,16 +106,16 @@ ul {
 #reset-button {
       display: inline-block;
       padding: 10px 20px;
-      background-color: var(--light-blue);
-      color: var(--off-white);
       margin: 1rem auto;
+      background-color: var(--light-green);
+      color: var(--off-white);
       font-size: 18px;
       border-radius: 5px;
 }
 
 #reset-button {
       display: flex;
-      background-color: var(--primary);
+      background-color: var(--red);
 }
 
 .large-symbol {
@@ -110,6 +124,6 @@ ul {
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 200px;
-      color: var(--shadow);
+      color: var(--symbol);
       pointer-events: none;
 }
