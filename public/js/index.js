@@ -7,10 +7,16 @@ const resetButton = document.getElementById("reset-button");
 // Select all the HTML elements with the class 'cell' (representing each square in the Tic Tac Toe board)
 const cells = document.querySelectorAll(".cell");
 
-let currentPlayer = "X";
+let currentPlayer = randomPlayer();
 let scores = { X: 0, O: 0, ties: 0 };
 let mainBoardState = ["", "", "", "", "", "", "", "", ""];
 let miniBoardStates = Array(9).fill(null).map(() => Array(9).fill(""));
+
+function randomPlayer() {
+      if (Math.floor(Math.random() * 2) + 1 == 1) {
+            return "X";
+      } else return "O"
+}
 
 document.addEventListener("DOMContentLoaded", function () {
       const mainBoard = document.getElementById("main-board");
