@@ -2,29 +2,44 @@ h1,
 h2 {
       text-align: center;
 }
+
 .instructions {
       max-width: 800px;
       margin: 0 auto;
 }
+
+:root {
+      --blue: #007bff;
+      --light-blue: #53a2be;
+      --grey: #25283d;
+      --primary: #a64253;
+      --secondary: #bcabae;
+      --off-white: #f4fff4;
+      --shadow: rgba(0, 0, 0, 0.75);
+}
+
 ul {
       margin: 10px 0;
 }
+
 .highlight {
       font-weight: bold;
-      color: #007bff;
+      color: var(--blue);
 }
 
 .main-board {
+      aspect-ratio: 1/1;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 5px;
-      border: 10px solid #25283d;
+      border: 10px solid var(--grey);
       border-radius: 10px;
       width: 75%;
-      margin: auto;
+      margin: 2rem auto;
 }
 
 .mini-board {
+      aspect-ratio: 1/1;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 5px;
@@ -32,9 +47,9 @@ ul {
 }
 
 .cell {
-      width: auto;
-      height: 65px;
-      background-color: #a64253;
+
+      aspect-ratio: 1/1;
+      background-color: var(--primary);
       font-family: cursive;
       font-weight: bold;
       display: flex;
@@ -45,12 +60,12 @@ ul {
 }
 
 .mini-board:nth-child(2n + 1) .cell {
-      background-color: #bcabae;
-      color: white;
+      background-color: var(--secondary);
+      color: var(--off-white);
 }
 
 .winner {
-      background-color: #25283d;
+      background-color: var(--grey);
 }
 
 .scoreboard {
@@ -66,16 +81,16 @@ ul {
 #reset-button {
       display: inline-block;
       padding: 10px 20px;
-      background-color: #53a2be;
-      color: white;
-      margin: 10px;
+      background-color: var(--light-blue);
+      color: var(--off-white);
+      margin: 1rem auto;
       font-size: 18px;
       border-radius: 5px;
 }
 
 #reset-button {
       display: flex;
-      background-color: #a64253;
+      background-color: var(--primary);
 }
 
 .large-symbol {
@@ -83,7 +98,7 @@ ul {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 200px; /* Adjust size as needed */
-      color: rgba(0, 0, 0, 0.75); /* Light color to make it subtle */
-      pointer-events: none; /* So it doesn't interfere with clicks */
+      font-size: 200px;
+      color: var(--shadow);
+      pointer-events: none;
 }
