@@ -126,6 +126,93 @@
     </section>
   </main>
 
+  <button id="reset-button">Reset Game</button>
+  <div class="instructions">
+    <h2>How to Play Meta Tic Tac Toe</h2>
+
+    <h3>Objective</h3>
+    <p><span class="highlight">Goal:</span> Win the game by achieving three mini-Tic Tac Toe victories in a row, column,
+      or diagonal on the main board.</p>
+
+    <h3>Game Setup</h3>
+    <ul>
+      <li><span class="highlight">Main Board:</span> Contains 9 mini-Tic Tac Toe boards arranged in a 3x3 grid.</li>
+      <li><span class="highlight">Mini-Boards:</span> Each mini-board is a standard Tic Tac Toe game with 9 cells.</li>
+    </ul>
+
+    <h3>Rules</h3>
+    <ul>
+      <li><span class="highlight">Turn Order:</span>
+        <ul>
+          <li>The game begins with Player X.</li>
+          <li>Players alternate turns, marking their symbol ("X" or "O") in the cells of the mini-boards.</li>
+        </ul>
+      </li>
+      <li><span class="highlight">Playing a Cell:</span>
+        <ul>
+          <li><span class="highlight">Click a Cell:</span> Choose a cell in one of the mini-boards to place your symbol.
+          </li>
+          <li><span class="highlight">Effect on Main Board:</span> Your move determines which mini-board your opponent
+            must play in next.</li>
+        </ul>
+      </li>
+      <li><span class="highlight">Winning a Mini-Board:</span>
+        <ul>
+          <li><span class="highlight">Objective:</span> Get three of your symbols in a row, column, or diagonal in a
+            mini-board.</li>
+          <li><span class="highlight">Effect:</span> If you win a mini-board, that board on the main board will display
+            your symbol in a large size. The mini-board will no longer accept moves.</li>
+        </ul>
+      </li>
+      <li><span class="highlight">Winning the Main Board:</span>
+        <ul>
+          <li><span class="highlight">Objective:</span> Get three of your mini-board victories in a row, column, or
+            diagonal on the main board.</li>
+          <li><span class="highlight">Effect:</span> Winning three mini-boards in a row, column, or diagonal completes
+            the game, and you win overall.</li>
+        </ul>
+      </li>
+      <li><span class="highlight">Ties:</span>
+        <ul>
+          <li><span class="highlight">Mini-Board Tie:</span> If all cells in a mini-board are filled without a winner,
+            that mini-board is marked as a tie.</li>
+          <li><span class="highlight">Game Tie:</span> If all mini-boards are filled and there is no overall winner, the
+            game is a tie.</li>
+        </ul>
+      </li>
+      <li><span class="highlight">Resetting the Game:</span>
+        <ul>
+          <li><span class="highlight">End of Round:</span> After a win or tie, the game resets for a new round.</li>
+          <li><span class="highlight">Scores:</span> The scoreboard updates to reflect the results.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>Strategy Tips</h3>
+    <ul>
+      <li><span class="highlight">Plan Ahead:</span> Think about not only where you place your symbol but also where you
+        send your opponent to play next.</li>
+      <li><span class="highlight">Block Opponents:</span> Try to place your symbol in cells that will block your
+        opponent from winning a mini-board.</li>
+      <li><span class="highlight">Control the Main Board:</span> Winning mini-boards strategically will help you control
+        the main board and increase your chances of winning the overall game.</li>
+    </ul>
+
+    <h3>Summary</h3>
+    <ul>
+      <li><span class="highlight">Make a Move:</span> Click on a cell to place your symbol and direct your opponent’s
+        next move.</li>
+      <li><span class="highlight">Win Mini-Boards:</span> Achieve three in a row in any mini-board to claim it.</li>
+      <li><span class="highlight">Win the Game:</span> Align three mini-board victories in a row, column, or diagonal on
+        the main board.</li>
+      <li><span class="highlight">Reset:</span> The game restarts after a win or tie, with updated scores.</li>
+    </ul>
+
+    <p>Enjoy strategizing and playing Meta Tic Tac Toe!</p>
+  </div>
+
+
+
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"
     integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
