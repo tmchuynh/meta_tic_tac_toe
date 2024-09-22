@@ -132,6 +132,20 @@ function checkMiniBoardWinner(boardIndex, player) {
       });
 }
 
+// Reset a mini-board in case of a tie
+function resetMiniBoard(boardIndex) {
+      // Clear the mini-board's state
+      miniBoardStates[boardIndex] = Array(9).fill("");
+
+      // Clear the mini-board's cells
+      const miniBoardCells = document.querySelectorAll(`.mini-board[data-board="${boardIndex}"] .cell`);
+      miniBoardCells.forEach(cell => {
+            cell.textContent = "";  // Clear text content
+            cell.style.pointerEvents = "auto";  // Enable clicks
+            cell.style.cursor = "pointer";  // Set cursor to pointer
+      });
+}
+
 // Check if a player has won the main board
 function checkMainBoardWinner(player) {
       const winConditions = [
