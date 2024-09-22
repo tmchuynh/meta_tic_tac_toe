@@ -7,15 +7,31 @@ const resetButton = document.getElementById("reset-button");
 
 // Initialize variables: current player, score, and board states
 let currentPlayer = randomPlayer();
-let scores = { X: 0, O: 0, ties: 0 };  // Track wins and ties
-let mainBoardState = ["", "", "", "", "", "", "", "", ""];  // Main board state
-let miniBoardStates = Array(9).fill(null).map(() => Array(9).fill(""));  // Mini-board states (9 mini boards, each with 9 cells)
+// Initialize the scores object to track the number of wins for each player and ties
+let scores = {
+      X: 0,    // Number of wins for player X
+      O: 0,    // Number of wins for player O
+      ties: 0  // Number of ties in the game
+};
+// Initialize the main board state as an array with 9 empty strings
+let mainBoardState = ["", "", "", "", "", "", "", "", ""];  // Represents the state of the main board (9 mini-boards)
+// Initialize the states of all mini-boards as a 2D array
+let miniBoardStates = Array(9).fill(null).map(() => Array(9).fill(""));
+// This creates an array with 9 mini-boards, 
+// each containing an array of 9 cells initialized to empty strings
+// Example structure:
+// [
+//   ["", "", "", "", "", "", "", "", ""], // Mini-board 1
+//   ["", "", "", "", "", "", "", "", ""], // Mini-board 2
+//   ...
+//   ["", "", "", "", "", "", "", "", ""]  // Mini-board 9
+// ]
 
 // Randomizes the first player
 function randomPlayer() {
       if (Math.floor(Math.random() * 2) + 1 == 1) {
             return "X";
-      } else return "O"
+      } else return "O";
 }
 
 // When the page loads, dynamically generate 9 mini boards
@@ -31,6 +47,20 @@ document.addEventListener("DOMContentLoaded", function () {
             miniBoard.classList.add("mini-board");
             miniBoard.setAttribute("data-board", boardIndex);
             miniBoard.setAttribute("aria-label", `Mini Board ${boardIndex}`);
+            // The ${} notation is part of a feature in JavaScript called template literals, which allow for easier string interpolation.
+
+            // Template literals are enclosed by backticks (`) instead of single (') or double quotes (").
+            // They allow for multi-line strings and string interpolation.
+            // String Interpolation:
+
+            // Inside a template literal, you can embed expressions using the ${} syntax.
+            // The expression inside the ${} is evaluated, and its result is inserted into the string.
+
+            // Backticks: The entire string is enclosed in backticks, allowing the use of interpolation.
+            // Expression: ${boardIndex} is the expression being evaluated. It retrieves the value of boardIndex, which represents the index of the current mini-board being created.
+            // Result: If, for example, boardIndex is 2, the resulting string would be "Mini Board 2".
+            // Usage: This string is then set as the value for the aria-label attribute of the miniBoard, enhancing accessibility by providing a descriptive label for screen readers.
+            // The ${} notation allows you to dynamically include values within a string, making it easier to construct strings that include variable data without needing cumbersome string concatenation.
 
             // Generate 9 cells for each mini-board
             for (let cellIndex = 0; cellIndex < numCells; cellIndex++) {
@@ -72,7 +102,7 @@ function handleCellClick(event) {
                   enableAllMiniBoards();  // Re-enable all other mini-boards
             } else if (miniBoardStates[miniBoardIndex].every(cell => cell !== "")) {
                   // If no winner and all cells are filled, mark the mini-board as a tie
-                  mainBoardState[miniBoardIndex] = "T";
+                  document.querySelector(`.mini-board[data-board="${miniBoardIndex}"]`).classList.add("tie");
                   resetMiniBoard(miniBoardIndex);  // Reset the mini-board
                   enableAllMiniBoards();  // Re-enable all other mini-boards
             }
@@ -84,14 +114,32 @@ function handleCellClick(event) {
                   updateScores();
                   resetGame();  // Reset the entire game
             } else if (mainBoardState.every(state => state !== "")) {
-                  // If all mini-boards are filled and no winner, it's a tie
-                  alert("It's a tie!");
-                  scores.ties++;
-                  updateScores();
-                  resetGame();
-            } else {
-                  // Switch to the next player
+                  // Check if every cell in the main board is filled (not an empty string)
+                  // The arrow function `state => state !== ""` is used to test each cell.
+                  // `every` returns true only if the provided condition is true for all elements in the array.
+
+                  // If all mini-boards are filled and no winner is found, it's a tie
+                  alert("It's a tie!");  // Notify players about the tie
+                  scores.ties++;         // Increment the tie score
+                  updateScores();        // Update the scoreboard to reflect the current scores
+                  resetGame();          // Reset the game for a new round
+            }
+            else {
+                  // Switch the current player
                   currentPlayer = currentPlayer === "X" ? "O" : "X";
+                  // This line uses the ternary operator to check the current player's symbol.
+                  // If currentPlayer is "X", it assigns "O" to currentPlayer.
+                  // If currentPlayer is not "X" (meaning it is "O"), it assigns "X" to currentPlayer.
+                  // This effectively alternates the current player between "X" and "O".
+
+                  // if (currentPlayer === "X") {
+                  //       // If the current player is "X", change currentPlayer to "O"
+                  //       currentPlayer = "O";
+                  // } else {
+                  //       // If the current player is not "X" (meaning it is "O"), change currentPlayer to "X"
+                  //       currentPlayer = "X";
+                  // }
+
             }
       }
 }
@@ -108,6 +156,9 @@ function disableOtherMiniBoards(activeBoardIndex) {
                   cells.forEach(cell => {
                         cell.style.pointerEvents = "none"; // Disable click events
                         cell.style.cursor = "default"; // Change cursor to default
+
+                        // % 2: The modulo operator (%) returns the remainder of the division of the left operand by the right.
+                        // When you divide any integer by 2, if the number is even, the remainder will be 0, and if it is odd, the remainder will be 1.
 
                         // Check if the mini-board is odd-numbered (nth-child(2n + 1))
                         if ((index + 1) % 2 === 1) {
@@ -137,7 +188,7 @@ function enableAllMiniBoards() {
             cells.forEach(cell => {
                   cell.style.backgroundColor = ""; // Reset background color to default
 
-                  // Only re-enable cells in boards that are still playable (haven't been won or tied)
+                  // Only re-enable cells in boards that are still playable (haven't been won)
                   if (!miniBoard.classList.contains("winner")) {
                         cell.style.pointerEvents = "auto"; // Re-enable click events
                         cell.style.cursor = "pointer"; // Set cursor to pointer
@@ -213,6 +264,19 @@ function updateScores() {
       scoreBoardX.textContent = `Player X: ${scores.X}`;
       scoreBoardO.textContent = `Player O: ${scores.O}`;
       scoreBoardTies.textContent = `Ties: ${scores.ties}`;
+
+      // The difference between innerHTML and textContent lies in how they handle content in an HTML element:
+      // innerHTML
+      // Definition: innerHTML allows you to get or set the HTML markup contained within an element.
+      // Usage: When you assign a value to innerHTML, you can include HTML tags, and those tags will be interpreted and rendered by the browser.
+      // Using innerHTML can introduce security risks, such as Cross-Site Scripting (XSS) attacks, if the content comes from user input. This is because any HTML or script tags will be executed
+      // element.innerHTML = "<strong>Hello</strong>";  --> This will render "Hello" as bold text.
+
+      // textContent
+      // Definition: textContent gets or sets the text content of an element without any HTML markup.
+      // Usage: When you assign a value to textContent, it treats the content as plain text. Any HTML tags will be displayed as text rather than being rendered as HTML.
+      // textContent is safer when dealing with user input since it doesn't interpret HTML. This reduces the risk of XSS attacks
+      // element.textContent = "<strong>Hello</strong>"; --> This will render the string "<strong>Hello</strong>" literally, showing the tags instead of applying any formatting.
 }
 
 // Reset the entire game state and UI
