@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Generate 9 mini-boards dynamically
 	for (let boardIndex = 0; boardIndex < numBoards; boardIndex++) {
 		// Create a mini-board container
-		const miniBoard = document.createElement("article");
+		const miniBoard = document.createElement("section");
 		miniBoard.classList.add("mini-board");
 		miniBoard.setAttribute("data-board", boardIndex);
 		miniBoard.setAttribute("aria-label", `Mini Board ${boardIndex}`);
