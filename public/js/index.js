@@ -167,13 +167,6 @@ function disableOtherMiniBoards(activeBoardIndex) {
                     cell.style.backgroundColor = "var(--default-bg-color)"; // Default background color
                 }
             });
-        } else {
-            // For the active mini-board, reset the cells' background color
-            cells.forEach(cell => {
-                cell.style.pointerEvents = "auto"; // Re-enable click events for the active mini-board
-                cell.style.cursor = "pointer"; // Change cursor back to pointer
-                cell.style.backgroundColor = ""; // Reset background color to default
-            });
         }
     });
 }
@@ -281,7 +274,7 @@ function updateScores() {
 
 // Reset the entire game state and UI
 function resetGame() {
-    currentPlayer = "X";  // Reset to player X
+    currentPlayer = randomPlayer();
     mainBoardState = ["", "", "", "", "", "", "", "", ""];  // Clear main board state
     miniBoardStates = Array(9).fill(null).map(() => Array(9).fill(""));  // Clear all mini-board states
 
