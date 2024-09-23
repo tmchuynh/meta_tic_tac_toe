@@ -92,9 +92,7 @@ function handleCellClick(event) {
         disableOtherMiniBoards(miniBoardIndex);
 
         // Check for a winner on the mini-board
-        let miniBoardWinner = "";
         if (checkMiniBoardWinner(miniBoardIndex, currentPlayer)) {
-            miniBoardWinner = currentPlayer;
             mainBoardState[miniBoardIndex] = currentPlayer;  // Update main board state if mini-board is won
             document.querySelector(`.mini-board[data-board="${miniBoardIndex}"]`).classList.add("winner");
             disableCells(miniBoardIndex);  // Disable further clicks on the mini-board
@@ -290,6 +288,7 @@ function resetGame() {
     // Clear all cell text content and re-enable clicks
     document.querySelectorAll(".cell").forEach(cell => {
         cell.textContent = "";
+        cell.style.backgroundColor = ""; // Reset background color to default
         cell.style.pointerEvents = "auto";  // Enable click events
         cell.style.cursor = "pointer";  // Reset cursor
     });
